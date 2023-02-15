@@ -1,44 +1,54 @@
 import sys
-
-
-def merge_sort(ar, p, r):
-    if p < r:
-        q = abs((p + r)//2);       # q는 p, r의 중간 지점
-        print(p, q, r)
-        ar1 = merge_sort(ar, p, q) 
-        ar2 = merge_sort(ar, q + 1, r)  # 후반부 정렬
-        ar = merge(ar1+ar2, p, q, r)        # 병합
+def merge_sort(ar):
+    if len(ar) <=1:
         return ar
-# A[p..q]와 A[q+1..r]을 병합하여 A[p..r]을 오름차순 정렬된 상태로 만든다.
-# A[p..q]와 A[q+1..r]은 이미 오름차순으로 정렬되어 있다.
-def merge(ar, p, q, r):
-    global cnt 
-    i = p
-    j = q + 1
-    tmp =[]
-    while (i <= q) and (j <= r):
-        if ar[i] <= ar[j]:
-            tmp.append(ar[i]); # tmp[t] <- A[i]; t++; i++;
-            i += 1
-            cnt += 1
-        else:
-            tmp.append(ar[j]); # tmp[t] <- A[j]; t++; j++;
-            j += 1
-            cnt += 1
-        if cnt == k: print(tmp[-1])
-        #print(cnt, k)
+    mid = (len(ar)+1)//2
+    left = ar[:mid]
+    right = ar[mid:]
+    print(left, right)       # q는 p, r의 중간 지점
+    left = merge_sort(left) 
+    right = merge_sort(right)  # 후반부 정렬
+    return merge(left, right)
 
-    while (i <= q):  # 왼쪽 배열 부분이 남은 경우
-        tmp.append(ar[i])
-        i +=1
-    while (j <= r):  # 오른쪽 배열 부분이 남은 경우
-        tmp.append(ar[j])
-        j +=1
-    print(tmp)
+def merge(left, right):
+    i = 0
+    j =0
+    tmp = []
+    global cnt
+    global k
+    while (i < len(left)) and (j < len(right)):
+        if left[i] <= right[j]:
+            tmp.append(left[i]); # tmp[t] <- A[i]; t++; i++;
+            cnt += 1
+            if cnt == k:
+                print(left[i])
+            i += 1
+        else:
+            tmp.append(right[j]); # tmp[t] <- A[j]; t++; j++;
+            cnt += 1
+            if cnt == k:
+                print(right[j])
+            j += 1
+        #if cnt == k: print(tmp[-1])
+        #print(cnt, k)
+    while i < len(left):
+        tmp.append(left[i])
+        cnt += 1
+        if cnt == k:
+            print(left[i])
+        i += 1
+    while j < len(right):
+        tmp.append(right[j])
+        cnt += 1    
+        if cnt == k:
+            print(right[j])
+        j += 1
+    
     return tmp
 
-global k
 n, k = map(int, sys.stdin.readline().split())
 lst = list(map(int, (sys.stdin.readline().split())))
 cnt = 0
-print(merge_sort(lst, 0, n-1))
+merge_sort(lst)
+if cnt < k:
+    print(-1)
