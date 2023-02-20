@@ -20,3 +20,6 @@ for i in range(n):
             cnt += 1
     rank.append(cnt)
 print(*rank, sep= ' ')
+
+#그냥 노가다로 풀면되는데 왜 고생했지....다른 방법이 있었을까?
+#브루트포스의 성립 조건이 무엇일까? 
