@@ -1,4 +1,5 @@
 import sys
+
 def BFS(graph, start_node):
     visit = []
     queue = []
