@@ -3,8 +3,6 @@ dx = [1, -1, 0, 0, 0, 0]
 dy = [0, 0, 1, -1, 0, 0]
 dz = [0, 0, 0, 0, 1, -1]
 
-
-
 M, N, H = map(int, input().split())
 
 def BFS(lst):
@@ -47,3 +45,5 @@ for i in range(H):
         break
 else:
     print(cnt)
+
+## 확실히 같은 문제를 풀다보니 가볍게 풀수 있는 정도가 됨
